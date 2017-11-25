@@ -4,11 +4,14 @@ const { createLogger, format, transports }       = require('winston');
 const { combine, timestamp, label, prettyPrint } = format;
 const moment                                     = require('moment');
 const fs                                         = require('fs');
+const conf                                       = require('../conf');
 
 // Single globale variable
 let winstonLogger;
 
 const instantiate = function() {
+  console.log('INSTANTIATING WINSTON ...');
+
   // Create the logs folder
   try {
     fs.mkdirSync('./logs');
@@ -22,7 +25,7 @@ const instantiate = function() {
     }
   }
 
-  const filename = moment().toISOString();
+  const filename = conf.LOGS_FOLDER + moment().toISOString();
 
   return createLogger({
     format: combine(
