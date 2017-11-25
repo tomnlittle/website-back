@@ -1,10 +1,11 @@
 'use strict';
 
 const { createLogger, format, transports }       = require('winston');
-const { combine, timestamp, label, prettyPrint } = format;
+const { combine, timestamp, prettyPrint, printf, colorize} = format;
 const moment                                     = require('moment');
 const fs                                         = require('fs');
 const conf                                       = require('../conf');
+const chalk                                      = require('chalk');
 
 // Single globale variable
 let winstonLogger;
@@ -28,18 +29,59 @@ const instantiate = function() {
 
   const filename = conf.LOGS_FOLDER + moment().toISOString();
 
-  return createLogger({
+  const logger = createLogger({
+    format: format.combine(
+      timestamp(),
+      isPrivate(),
+      colorize(),
+      consoleFormatter
+    ),
     transports: [
-      new transports.Console(),
-      new transports.File({ filename })
+      new transports.Console({ 
+        colorize : true
+      }),
+      new transports.File({ 
+        filename 
+      })
     ]
   });
+
+  //logger.addColors(levels);
+
+  return logger;
+
 }
+
+/**
+ * Handler for private error logs
+ * @param  {} info - object
+ * @param  {} opts - parameters for winston log
+ */
+const isPrivate = format((info, opts) => {
+  if (info.private) { return false; }
+  return info;
+});
+
+/**
+ * Handler for formatting the console output
+ * @param  {} info - object
+ */
+const consoleFormatter = printf((info, opts) => {
+
+  const errString = '';
+  for (row in info.err) {
+    errString.concat(row + '\n');
+  }
+  
+  return `${info.timestamp} ${info.level}: ${info.message} ${errString}`;
+});
+
 /**
  * Returns the error object, so we always print the full stack of the error
  * @param  {} err - Error Object
  */
 const prepareError = function(err) {
+  if (!err) return {};
   return {
     err: JSON.stringify(err),
     message: err.message,
@@ -76,17 +118,25 @@ const info = function(msg, errorObject, privateMode) {
 
 /**
  * Logs errors
- * This is the main function called
  * @param  {} msg - Any string that needs be printed
  * @param  {} object  - Error object
- * @param  {} privateMode - Whether the log should be written to disk or not 
  */
 const error = function(msg, errorObject) {
   return log(msg, errorObject, 'error');
 }
 
+/**
+ * Logs warnings
+ * @param  {} msg - Any string that needs be printed
+ * @param  {} object  - Error object
+ */
+const warn = function(msg, errorObject) {
+  return log(msg, errorObject, 'warn');
+}
+
 module.exports = {
-  log, 
-  error
+  info, 
+  error,
+  warn
 }
 

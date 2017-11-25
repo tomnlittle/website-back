@@ -11,7 +11,7 @@ const passport           = require('passport');
 
 // Crash server if Server is configured for the incorrect region
 //                  -> Everything is handled in epoch UTC
-if (momentTimezone.tz.guess() === "Australia/Sydney") {
+if (momentTimezone.tz.guess() !== "Australia/Sydney") {
     logger.error('Region incorrectly set, should be "Australia/Sydney" ', {
     'Current TZ': momentTimezone.tz.guess(),
     'TimezoneOffset': moment().utcOffset()
@@ -23,6 +23,7 @@ if (momentTimezone.tz.guess() === "Australia/Sydney") {
 moment.tz.setDefault('UTC');
 
 console.log(moment(), conf.FLICKR_API_KEY, conf.ENVIRONMENT);
+
 logger.error('here')
 logger.info('here')
 
