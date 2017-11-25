@@ -1,3 +1,7 @@
+/**
+ * Endpoints for flickr
+ * @module flickrRoutes
+ */
 'use strict';
 
 const flickr = require('../controllers/flickr.controller');

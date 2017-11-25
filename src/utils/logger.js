@@ -1,3 +1,8 @@
+/**
+ * Logger tool
+ * @module logger
+ */
+
 'use strict';
 
 const { createLogger, format, transports }       = require('winston');

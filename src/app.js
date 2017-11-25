@@ -8,7 +8,7 @@ const express            = require('express');
 const responseTime       = require('response-time');
 const bodyParser         = require('body-parser');
 
-/ * The below three functions are yet unused - authentication not implmented * /
+/ * The below three functions are yet unused - authentication not yet implmented * /
 const passport           = require('passport');
 const session            = require('express-session');
 const RedisStore         = require('connect-redis')(session);
@@ -53,7 +53,7 @@ app.use(passport.session());
 const router = express.Router();
 
 // Import middleware
-const middleware = require('./middleware/auth.middleware');
+const middleware = require('./middleware/');
 
 // Import the routes
 const routes = require('./routes')
@@ -73,5 +73,4 @@ app.use('/', router);
 // Get app to listen on default port
 app.listen(conf.PORT);
 
-logger.info('test ');
 logger.info('Backend running on port', conf.PORT);
