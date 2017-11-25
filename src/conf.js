@@ -15,6 +15,9 @@ module.exports = {
   // Logs folder
   LOGS_FOLDER            : './logs/',
 
+  // Standard display date format => Only for displaying to the user
+  DISPLAY_DATE_FORMAT    : 'Do MMMM YYYY - HH:mm:ss',
+
   // API key for flickr
   FLICKR_API_KEY         : CONFIG.FLICKR_API_KEY,
 }

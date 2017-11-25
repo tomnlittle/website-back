@@ -1,11 +1,10 @@
 'use strict';
 
 const { createLogger, format, transports }       = require('winston');
-const { combine, timestamp, prettyPrint, printf, colorize} = format;
+const { combine, printf, colorize}               = format;
 const moment                                     = require('moment');
 const fs                                         = require('fs');
 const conf                                       = require('../conf');
-const chalk                                      = require('chalk');
 
 // Single globale variable
 let winstonLogger;
@@ -27,14 +26,10 @@ const instantiate = function() {
     }
   }
 
-  const filename = conf.LOGS_FOLDER + moment().toISOString();
+  const filename = conf.LOGS_FOLDER + moment().format(conf.DISPLAY_DATE_FORMAT);
 
   return createLogger({
-    format: format.combine(
-      timestamp(),
-    ),
     transports: [
-      
       new transports.Console({ 
         format: format.combine(
           colorize(),
@@ -70,12 +65,14 @@ const isPrivate = format((info, opts) => {
  */
 const consoleFormatter = printf((info, opts) => {
 
-  const errString = '';
+  let errString = '';
   for (row in info.err) {
     errString.concat(row + '\n');
   }
+
+  const timestamp = moment().format(conf.DISPLAY_DATE_FORMAT);
   
-  return `${info.timestamp} ${info.level}: ${info.message} ${errString}`;
+  return `${timestamp} ${info.level}: ${info.message} ${errString}`;
 });
 
 /**
