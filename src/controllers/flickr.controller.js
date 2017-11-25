@@ -8,6 +8,13 @@ const get = function(req, res) {
   return;
 }
 
+const admin = function(req, res) {
+  logger.info('admin function works')
+  res.status(200).json({});
+  return;
+}
+
 module.exports = {
-  get
+  get,
+  admin
 }

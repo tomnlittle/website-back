@@ -9,5 +9,6 @@ module.exports = {
   },
 
   admin: function(router) {
+    router.get('/flickr/admin', flickr.admin);
   }
 }
