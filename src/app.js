@@ -1,6 +1,7 @@
 const momentTimezone     = require('moment-timezone');
 const moment             = require('moment');
 const winston            = require('winston');
+const conf               = require('./conf');
 
 // Crash server if Server is configured for the incorrect region
 //                  -> Everything is handled in epoch UTC
@@ -15,4 +16,4 @@ if (momentTimezone.tz.guess() !== "Australia/Sydney") {
 // Set the default timezone
 moment.tz.setDefault('UTC');
 
-console.log(moment());
+console.log(moment(), conf.FLICKR_API_KEY);
