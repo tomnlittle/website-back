@@ -22,10 +22,9 @@ if (momentTimezone.tz.guess() !== "Australia/Sydney") {
 // Set the default timezone
 moment.tz.setDefault('UTC');
 
-console.log(moment(), conf.FLICKR_API_KEY, conf.ENVIRONMENT);
-
-logger.error('here')
-logger.info('here')
+logger.error('error')
+logger.info('info')
+logger.warn('warn')
 
 // Initialise the express app
 

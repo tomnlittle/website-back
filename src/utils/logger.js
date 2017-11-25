@@ -29,27 +29,29 @@ const instantiate = function() {
 
   const filename = conf.LOGS_FOLDER + moment().toISOString();
 
-  const logger = createLogger({
+  return createLogger({
     format: format.combine(
       timestamp(),
-      isPrivate(),
-      colorize(),
-      consoleFormatter
     ),
     transports: [
+      
       new transports.Console({ 
+        format: format.combine(
+          colorize(),
+          consoleFormatter
+        ),
         colorize : true
       }),
       new transports.File({ 
-        filename 
+        format: format.combine(
+          isPrivate(),
+          consoleFormatter
+        ),
+        filename,
+        colorize : false
       })
     ]
   });
-
-  //logger.addColors(levels);
-
-  return logger;
-
 }
 
 /**
