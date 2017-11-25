@@ -5,7 +5,6 @@
 'use strict';
 
 const fs      = require('fs');
-//const routes  = require('./routes/routes');
 
 // External json file that stores keys which should not be in a 
 // public git repository
@@ -25,8 +24,6 @@ module.exports = {
 
   // API key for flickr
   FLICKR_API_KEY         : CONFIG.FLICKR_API_KEY,
-
-  //ROUTES                 : routes.routes, 
 
   PORT                   : 3001
 }

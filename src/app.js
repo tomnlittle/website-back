@@ -34,6 +34,14 @@ moment.tz.setDefault('UTC');
 // Initialise the express app
 const app = express();
 
+// http://expressjs.com/en/4x/api.html#express.json
+app.use(express.json({
+  inflate: false, // when false does not handle deflated bodies 
+  limit: 1000, // in Bytes
+  strict: true, // Only accept arrays and objects
+  type: "application/json" // Type of requests
+}))
+
 // Import the response time library 
 app.use(responseTime());
 
@@ -50,7 +58,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Initialise the router
-const router = express.Router();
+const router = express.Router({
+  strict: true // /foo/ and /foo are not treated the same
+});
 
 // Import middleware
 const middleware = require('./middleware/');
