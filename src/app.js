@@ -2,11 +2,13 @@
 
 const momentTimezone     = require('moment-timezone');
 const moment             = require('moment');
-const logger             = require('./utils/logger');
-const conf               = require('./conf');
 const express            = require('express');
 const session            = require('express-session');
 const passport           = require('passport');
+const RedisStore         = require('connect-redis')(session)
+
+const logger             = require('./utils/logger');
+const conf               = require('./conf');
 
 
 // Crash server if Server is configured for the incorrect region
@@ -22,9 +24,18 @@ if (momentTimezone.tz.guess() !== "Australia/Sydney") {
 // Set the default timezone
 moment.tz.setDefault('UTC');
 
-logger.error('error')
-logger.info('info')
-logger.warn('warn')
-
 // Initialise the express app
+const app = express();
+app.use(session({
+  store: new RedisStore({
+    url: config.redisStore.url
+  }),
+  secret: config.redisStore.secret,
+  resave: false,
+  saveUninitialized: false
+}))
+
+// Import Passport authentication
+app.use(passport.initialize());
+app.use(passport.session());
 
