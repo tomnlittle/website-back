@@ -2,11 +2,18 @@
 
 const momentTimezone     = require('moment-timezone');
 const moment             = require('moment');
-const express            = require('express');
-const session            = require('express-session');
-const passport           = require('passport');
-const RedisStore         = require('connect-redis')(session)
 
+/ * Express is used for routing * / 
+const express            = require('express');
+const responseTime       = require('response-time');
+const bodyParser         = require('body-parser');
+
+/ * The below three functions are yet unused - authentication not implmented * /
+const passport           = require('passport');
+const session            = require('express-session');
+const RedisStore         = require('connect-redis')(session);
+
+/ * Logger class writes to the console and log files * /
 const logger             = require('./utils/logger');
 const conf               = require('./conf');
 
@@ -26,16 +33,45 @@ moment.tz.setDefault('UTC');
 
 // Initialise the express app
 const app = express();
+
+// Import the response time library 
+app.use(responseTime());
+
+// Initialise the redis cache store
 app.use(session({
-  store: new RedisStore({
-    url: config.redisStore.url
-  }),
-  secret: config.redisStore.secret,
+  store: new RedisStore(),
+  secret: 'secretkey_currently_unused_no_authentication',
   resave: false,
   saveUninitialized: false
-}))
+}));
 
-// Import Passport authentication
+// Import passport
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Initialise the router
+const router = express.Router();
+
+// Import middleware
+const middleware = require('./middleware/auth.middleware');
+
+// Import the routes
+const routes = require('./routes')
+
+// Add the decoder to the router
+router.use(middleware.decode);
+
+// Add open functions to router 
+for (const route in routes) routes[route].open(router);
+
+// Add admin authentication layer
+router.use(middleware.adminAuth);
+for (const route in routes) routes[route].admin(router);
+
+app.use('/', router);
+
+// Get app to listen on default port
+app.listen(conf.PORT);
+
+logger.info('test ');
+logger.info('Backend running on ', conf.PORT);

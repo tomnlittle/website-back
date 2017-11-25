@@ -6,7 +6,7 @@ const moment                                     = require('moment');
 const fs                                         = require('fs');
 const conf                                       = require('../conf');
 
-// Single globale variable
+// Single global variable
 let winstonLogger;
 
 /**
@@ -26,7 +26,7 @@ const instantiate = function() {
     }
   }
 
-  const filename = conf.LOGS_FOLDER + moment().format(conf.DISPLAY_DATE_FORMAT);
+  const filename = conf.LOGS_FOLDER + moment().toISOString();
 
   return createLogger({
     transports: [
@@ -66,10 +66,14 @@ const isPrivate = format((info, opts) => {
 const consoleFormatter = printf((info, opts) => {
 
   let errString = '';
-  for (row in info.err) {
-    errString.concat(row + '\n');
-  }
+  Object.keys(info.err).forEach((key) => {
+    if (info.err[key]) {
+      errString.concat(info.err[key]);
+      console.log(info.err[key])
+    } 
+  })
 
+  console.log(errString)
   const timestamp = moment().format(conf.DISPLAY_DATE_FORMAT);
   
   return `${timestamp} ${info.level}: ${info.message} ${errString}`;
@@ -82,9 +86,9 @@ const consoleFormatter = printf((info, opts) => {
 const prepareError = function(err) {
   if (!err) return {};
   return {
-    err: JSON.stringify(err),
-    message: err.message,
-    stack: err.stack
+    err: JSON.stringify(err) || null,
+    message: err.message || null,
+    stack: err.stack || null
   };
 }
 
