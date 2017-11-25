@@ -74,4 +74,4 @@ app.use('/', router);
 app.listen(conf.PORT);
 
 logger.info('test ');
-logger.info('Backend running on ', conf.PORT);
+logger.info('Backend running on port', conf.PORT);

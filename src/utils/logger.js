@@ -68,12 +68,10 @@ const consoleFormatter = printf((info, opts) => {
   let errString = '';
   Object.keys(info.err).forEach((key) => {
     if (info.err[key]) {
-      errString.concat(info.err[key]);
-      console.log(info.err[key])
+      errString += info.err[key];
     } 
-  })
+  });
 
-  console.log(errString)
   const timestamp = moment().format(conf.DISPLAY_DATE_FORMAT);
   
   return `${timestamp} ${info.level}: ${info.message} ${errString}`;
