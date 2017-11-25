@@ -13,7 +13,7 @@ module.exports = {
   ENVIRONMENT            : process.env.NODE_ENV,
 
   // Logs folder
-  LOGS_FOLDER            : './logs',
+  LOGS_FOLDER            : './logs/',
 
   // API key for flickr
   FLICKR_API_KEY         : CONFIG.FLICKR_API_KEY,
