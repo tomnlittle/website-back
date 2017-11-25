@@ -5,18 +5,28 @@
   "main": "app.js",
   "scripts": {
     "start": "better-npm-run start",
+    "serve": "better-npm-run run-prod",
     "dev": "better-npm-run reload",
     "docs": "apidoc -i src/ -o docs/",
     "test": "mocha test --recursive --timeout 5000 --slow 0"
   },
   "betterScripts": {
     "start": {
-      "command": "node src/app"
+      "command": "node src/app",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    "run-prod": {
+      "command": "node src/app",
+      "env": {
+        "NODE_ENV": "production"
+      }
     },
     "reload": {
       "command": "nodemon src/app",
       "env": {
-        "NODE_ENV": "dev"
+        "NODE_ENV": "development"
       }
     }
   },
@@ -33,11 +43,12 @@
   "dependencies": {
     "crypto-js": "^3.1.9-1",
     "express": "^4.16.2",
-    "jsonwebtoken": "^7.4.3",
+    "express-session": "^1.15.6",
     "moment": "^2.19.2",
     "moment-timezone": "^0.5.14",
     "nodemon": "^1.12.1",
-    "winston": "^2.4.0"
+    "passport": "^0.4.0",
+    "winston": "^3.0.0-rc1"
   },
   "devDependencies": {
     "apidoc": "^0.16.1",

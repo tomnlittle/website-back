@@ -1,3 +1,5 @@
+'use strict';
+
 const fs = require('fs');
 
 function define(name, value) {
@@ -14,3 +16,4 @@ define('CONFIG_JSON', './config.json');
 const CONFIG = JSON.parse(fs.readFileSync(this.CONFIG_JSON, 'utf8'));
 
 define('FLICKR_API_KEY', CONFIG.FLICKR_API_KEY);
+define('ENVIRONMENT', process.env.NODE_ENV);

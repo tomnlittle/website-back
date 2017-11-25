@@ -1,8 +1,14 @@
+'use strict';
+
 const momentTimezone     = require('moment-timezone');
 const moment             = require('moment');
-const winston            = require('winston');
+const logger             = require('./utils/logger')(__filename);
 const conf               = require('./conf');
+const express            = require('express');
+const session            = require('express-session');
+const passport           = require('passport');
 
+/*
 // Crash server if Server is configured for the incorrect region
 //                  -> Everything is handled in epoch UTC
 if (momentTimezone.tz.guess() !== "Australia/Sydney") {
@@ -12,8 +18,15 @@ if (momentTimezone.tz.guess() !== "Australia/Sydney") {
   });
   process.exit(1);
 }
-
+ */
 // Set the default timezone
 moment.tz.setDefault('UTC');
 
-console.log(moment(), conf.FLICKR_API_KEY);
+console.log(moment(), conf.FLICKR_API_KEY, conf.ENVIRONMENT);
+console.log(logger);
+
+logger.error('here')
+logger.info('here')
+
+// Initialise the express app
+
