@@ -9,7 +9,6 @@
  * Middleware which handles authentication
  */
 const logger          = require('../utils/logger');
-
 const NotFound        = require('../errors/404');
 
 /**

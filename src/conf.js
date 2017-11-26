@@ -25,5 +25,8 @@ module.exports = {
   // API key for google maps
   GOOGLE_MAPS_API_KEY    : this.ENVIRONMENT === 'production' ? CONFIG.GOOGLE.LIVE.MAPS : CONFIG.GOOGLE.TEST.MAPS,
 
+  //API for Deep AI
+  DEEP_AI_KEY            : CONFIG.DEEP_AI.KEY,
+
   PORT                   : 3001
 };
