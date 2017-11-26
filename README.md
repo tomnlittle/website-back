@@ -28,6 +28,7 @@ Made possible due to the great work by:
 * [Q](https://github.com/kriskowal/q) - Promise library for javascript
 * [Winston](https://github.com/winstonjs/winston) - A logger for just about anything
 * [DeepAI](https://deepai.org/machine-learning-model/deepdream) - API for accessing Google's Deep Mind API
+* [Dillinger.io](https://dillinger.io/) - Markdown Formatting and editing
 
 ### Installation
 
