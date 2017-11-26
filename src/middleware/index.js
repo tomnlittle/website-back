@@ -2,12 +2,12 @@
  * Middleware for authentication and decoding
  * @module middleware
  */
+
 'use strict';
 
 /**
  * Middleware which handles authentication
  */
-const conf            = require('../conf');
 const logger          = require('../utils/logger');
 
 const NotFound        = require('../errors/404');
@@ -45,6 +45,11 @@ const adminAuth = function(req, res, next) {
   next();
 };
 
+const unhandledCatch = function(req, res, next) {
+  console.log('here');
+  next(res.status(404));
+};
+
 /**
  * Request error handler
  * 
@@ -56,10 +61,10 @@ const adminAuth = function(req, res, next) {
 const handleError = function(err, req, res, next) {
   logger.alert('', new NotFound());
   next()
-}
+};
 
 module.exports = {
   parse,
   adminAuth,
-  handleError
+  unhandledCatch
 };

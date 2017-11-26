@@ -2,6 +2,7 @@
  * Endpoints for flickr
  * @module flickrRoutes
  */
+
 'use strict';
 
 const flickr = require('../controllers/flickr.controller');
@@ -15,4 +16,4 @@ module.exports = {
   admin: function(router) {
     router.get('/flickr/admin', flickr.admin);
   }
-}
+};

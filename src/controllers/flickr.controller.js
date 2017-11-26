@@ -30,10 +30,10 @@ const logger        = require('../utils/logger');
  *     }
  */
 const get = function(req, res) {
-  logger.info('get function works')
+  logger.info('get function works');
   res.status(200).json();
   return;
-}
+};
 
 /**
  *  Simply a test function for checking admin access
@@ -41,12 +41,12 @@ const get = function(req, res) {
  * @param {*} res 
  */
 const admin = function(req, res) {
-  logger.info('admin function works')
+  logger.info('admin function works');
   res.status(200).json();
   return;
-}
+};
 
 module.exports = {
   get,
   admin
-}
+};

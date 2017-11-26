@@ -3,24 +3,24 @@
 const momentTimezone     = require('moment-timezone');
 const moment             = require('moment');
 
-/ * Express is used for routing * / 
+/ * Express is used for routing * /;
 const express            = require('express');
 const responseTime       = require('response-time');
 
-/ * The below three functions are yet unused - authentication not yet implmented * /
+/ * The below three functions are yet unused - authentication not yet implmented * /;
 const passport           = require('passport');
 const session            = require('express-session');
 const RedisStore         = require('connect-redis')(session);
 
-/ * Logger class writes to the console and log files * /
+/ * Logger class writes to the console and log files * /;
 const logger             = require('./utils/logger');
 const conf               = require('./conf');
 
 
 // Crash server if Server is configured for the incorrect region
 //                  -> Everything is handled in epoch UTC
-if (momentTimezone.tz.guess() !== "Australia/Sydney") {
-    logger.error('Region incorrectly set, should be "Australia/Sydney" ', {
+if (momentTimezone.tz.guess() !== 'Australia/Sydney') {
+  logger.error('Region incorrectly set, should be "Australia/Sydney" ', {
     'Current TZ': momentTimezone.tz.guess(),
     'TimezoneOffset': moment().utcOffset()
   });
@@ -39,9 +39,9 @@ app.use(express.json({
   limit: 1000, // in Bytes
   reviver: null, // second argument into json.parse
   strict: true, // Only accept arrays and objects
-  type: "application/json", // Type of requests
+  type: 'application/json', // Type of requests
   verify: undefined // function call 
-}))
+}));
 
 // Import the response time library 
 app.use(responseTime());
@@ -79,9 +79,9 @@ for (const route in routes) routes[route].open(router);
 router.use(middleware.adminAuth);
 for (const route in routes) routes[route].admin(router);
 
-app.use(middleware.handleError);
-
+//app.use(middleware.unhandledCatch);
 app.use('/', router);
+app.use('*', middleware.unhandledCatch);
 
 // Uncaught exception handler
 process.on('uncaughtException', (err) => {
