@@ -1,6 +1,6 @@
 /**
  * Endpoints for flickr controller
- * @module flickrController
+ * @module bannerController
  */
 
 'use strict';

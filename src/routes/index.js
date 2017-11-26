@@ -4,8 +4,8 @@
  */
 'use strict';
 
-const flickr        = require('./flickr.route');
+const banner        = require('./banner.route');
 
 module.exports = {
-  flickr
+  banner
 };
