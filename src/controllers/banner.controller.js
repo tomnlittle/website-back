@@ -6,8 +6,8 @@
 'use strict';
 
 const logger        = require('../utils/logger');
-const gmaps         = require('../external-api/google');
-const deep          = require('../external-api/deep-ai');
+const gmaps         = require('../external-apis/google');
+const deep          = require('../external-apis/deep-ai');
 
 /**
  * @api {all} /flickr/get
@@ -32,11 +32,7 @@ const deep          = require('../external-api/deep-ai');
  *     }
  */
 const get = function(req, res) {
-  gmaps.autocomplete('1 cleveland st sydney').then((result) => {
-    //console.log(result);
-  }).catch((err) => {
-   // console.log(err);
-  });
+  
   logger.info('get function works');
   res.status(200).json();
   return;
