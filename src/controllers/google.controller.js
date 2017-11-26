@@ -7,6 +7,7 @@
 
 const logger        = require('../utils/logger');
 const gmaps         = require('../external-apis/google');
+const status        = require('http-status-codes');
 
 /**
  * @api {all} /google/autocomplete
@@ -34,7 +35,7 @@ const autocomplete = function(req, res) {
   const searchQuery = req.query.searchQuery || null;
   
   if(!searchQuery) {
-    res.status(401).json({
+    res.status(status.BAD_REQUEST).json({
       result: 'Invalid Search Query'
     }); 
     return;
@@ -51,14 +52,12 @@ const autocomplete = function(req, res) {
       });
     }
 
-    res.status(200).json({
+    res.status(status.OK).json({
       predictions: predictions
     });
   }).catch((err) => {
     logger.error('[google-maps] AutoComplete', err);      
-    res.status(500).json({
-      result: 'ServerError'
-    }); 
+    res.status(status.INTERNAL_SERVER_ERROR); 
   });
 };
 
