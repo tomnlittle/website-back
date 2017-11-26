@@ -59,10 +59,27 @@ class GoogleMaps {
   getPlace(placeID) {
     return this.client.place({
       placeid: placeID,
-      language: this.language,
-      components: { country: this.geolock }
+      language: this.language
     }).asPromise().then((result) => {
-      console.log(result);
+      if (result.hasOwnProperty('json') && result.json.hasOwnProperty('result')) return result.json.result;
+      return Promise.reject(result);
+    });
+  }
+
+  /**
+   * Takes a photo reference, returned on a place id lookup and grabs the photo for the location
+   * @param {String} reference - Unique reference for the image, simply called reference in google api calls
+   * @param {Integer} width - Max width of the image
+   * @param {Integer} height - Max height of the image
+   * @return {Promise} 
+   */
+  getPlacePhoto(reference, width = 400, height = 400) {
+    return this.client.placesPhoto({
+      photoreference: reference,
+      maxwidth: width,
+      maxheight: height
+    }).asPromise().then((result) => {
+      return result;
     });
   }
 }

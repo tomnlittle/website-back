@@ -34,18 +34,19 @@ const parse = function(req, res, next) {
  * @param {*} next - next function in stack
  */
 const adminAuth = function(req, res, next) {
-  logger.info('[admin auth]');
+  logger.info('[admin middleware]');
 
   // decode the token
 
   // log success or failure 
 
-  // log call
+  // log request endpoint
 
   next();
 };
 
 const unhandledCatch = function(req, res) {
+  // Just call handleError at this stage
   handleError(new NotFound, req, res);
 };
 
