@@ -35,6 +35,11 @@ class GoogleMaps {
     });
   }
 
+  /**
+   * Gets place id from autocomplete
+   * @param {String} query
+   * @return {Promise} A promise that resolves with the place data or rejects on error
+   */
   autocomplete(query) {
     return this.client.placesAutoComplete({
       input: query, 
@@ -43,6 +48,21 @@ class GoogleMaps {
     }).asPromise().then((result) => {
       if (result.hasOwnProperty('json') && result.json.hasOwnProperty('predictions')) return result.json.predictions;
       return Promise.reject(result);
+    });
+  }
+
+  /**
+   * Gets data for a location using the places API
+   * @param {String} placeID
+   * @return {Promise} A promise that resolves with the geodata or rejects on geocode error
+   */
+  getPlace(placeID) {
+    return this.client.place({
+      placeid: placeID,
+      language: this.language,
+      components: { country: this.geolock }
+    }).asPromise().then((result) => {
+      console.log(result);
     });
   }
 }

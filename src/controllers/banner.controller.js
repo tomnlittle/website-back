@@ -1,5 +1,5 @@
 /**
- * Endpoints for flickr controller
+ * Endpoints for banner controller
  * @module bannerController
  */
 
@@ -10,9 +10,9 @@ const gmaps         = require('../external-apis/google');
 const deep          = require('../external-apis/deep-ai');
 
 /**
- * @api {all} /flickr/get
- * @apiGroup flickr
- * @apiDescription Gets the latest image to be displayed from flickr.
+ * @api {all} /banner/get
+ * @apiGroup banner
+ * @apiDescription Gets the latest image to be displayed. Gets the image with the place id, processes it in deepAI and returns it.
  *
  * @apiSuccess {String} result Message containing success code.
  *
@@ -20,7 +20,7 @@ const deep          = require('../external-apis/deep-ai');
  *     HTTP/1.1 200 OK
  *     {
  *       "result": "Success",
- *       "image": "http://flickr-image-url.com"
+ *       "image": "imageURL"
  *     }
  *
  * @apiError ServerError Internal server error
