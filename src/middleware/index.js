@@ -54,10 +54,8 @@ const adminAuth = function(req, res, next) {
  * @param {*} next - next function in stack
  */
 const handleError = function(err, req, res, next) {
-  //console.log(notFound)
-  console.log('here')
-  logger.alert('alerting');
-  next(new NotFound(''))
+  logger.alert('', new NotFound());
+  next()
 }
 
 module.exports = {

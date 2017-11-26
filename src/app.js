@@ -6,7 +6,6 @@ const moment             = require('moment');
 / * Express is used for routing * / 
 const express            = require('express');
 const responseTime       = require('response-time');
-const bodyParser         = require('body-parser');
 
 / * The below three functions are yet unused - authentication not yet implmented * /
 const passport           = require('passport');
@@ -68,7 +67,7 @@ const router = express.Router({
 const middleware = require('./middleware/');
 
 // Import the routes
-const routes = require('./routes')
+const routes = require('./routes');
 
 // Add the decoder to the router
 router.use(middleware.parse);
@@ -83,6 +82,16 @@ for (const route in routes) routes[route].admin(router);
 app.use(middleware.handleError);
 
 app.use('/', router);
+
+// Uncaught exception handler
+process.on('uncaughtException', (err) => {
+  logger.error('[app] Uncaught exception encountered', err);
+});
+
+// Unhandled promise rejection handler
+process.on('unhandledRejection', (err) => {
+  logger.error('[app] Uncaught promise rejection', err);
+});
 
 // Get app to listen on default port
 app.listen(conf.PORT);

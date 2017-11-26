@@ -80,7 +80,6 @@ const instantiate = function() {
         filename: alert,
         colorize : false
       })
-
     ]
   });
 }
