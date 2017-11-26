@@ -42,13 +42,15 @@ const autocomplete = function(req, res) {
 
   return gmaps.autocomplete(searchQuery).then((result) => {
     const predictions = [];
-    for (const index in result) {
-      const object = result[index];
+
+    for (const object of result) {
       predictions.push({
         prediction: object.description,
-        placeID: object.place_id
+        placeID: object.place_id,
+        photo: object.reference
       });
-    } 
+    }
+
     res.status(200).json({
       predictions: predictions
     });
