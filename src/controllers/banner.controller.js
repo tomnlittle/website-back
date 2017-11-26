@@ -6,6 +6,7 @@
 'use strict';
 
 const logger        = require('../utils/logger');
+const gmaps         = require('../utils/google');
 
 /**
  * @api {all} /flickr/get
@@ -30,6 +31,9 @@ const logger        = require('../utils/logger');
  *     }
  */
 const get = function(req, res) {
+  gmaps.geocode('1 cleveland st sydney').then((result) => {
+    console.log(result);
+  });
   logger.info('get function works');
   res.status(200).json();
   return;

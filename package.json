@@ -35,12 +35,13 @@
     "url": "git+https://github.com/tomnlittle/website-back"
   },
   "author": "Thomas Northall-Little",
-  "license": "",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/tomnlittle/website-back/issues"
   },
   "homepage": "https://github.com/tomnlittle/website-back#readme",
   "dependencies": {
+    "@google/maps": "^0.4.5",
     "connect-redis": "^3.3.2",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
@@ -48,6 +49,7 @@
     "moment-timezone": "^0.5.14",
     "nodemon": "^1.12.1",
     "passport": "^0.4.0",
+    "q": "^1.5.1",
     "response-time": "^2.3.2",
     "winston": "^3.0.0-rc1"
   },
