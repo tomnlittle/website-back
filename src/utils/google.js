@@ -8,6 +8,9 @@ const q     = require('q');
 
 class GoogleMaps {
   constructor() {
+    this.geolock = 'au';
+    this.language = 'en';
+
     this.key = conf.GOOGLE_MAPS_API_KEY;
     this.client = gmaps.createClient({
       key : this.key,
@@ -23,9 +26,21 @@ class GoogleMaps {
   geocode(address) {
     return this.client.geocode({
       address: address,
-      components: { country: 'au' }
+      language: this.language,
+      components: { country: this.geolock }
     }).asPromise().then((result) => {
       if (result.hasOwnProperty('json') && result.json.hasOwnProperty('results')) return result.json.results;
+      return Promise.reject(result);
+    });
+  }
+
+  autocomplete(query) {
+    return this.client.placesAutoComplete({
+      input: query, 
+      language: this.language,
+      components: { country: this.geolock }
+    }).asPromise().then((result) => {
+      if (result.hasOwnProperty('json') && result.json.hasOwnProperty('predictions')) return result.json.predictions;
       return Promise.reject(result);
     });
   }

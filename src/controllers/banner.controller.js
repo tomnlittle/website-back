@@ -31,8 +31,10 @@ const gmaps         = require('../utils/google');
  *     }
  */
 const get = function(req, res) {
-  gmaps.geocode('1 cleveland st sydney').then((result) => {
+  gmaps.autocomplete('1 cleveland st sydney').then((result) => {
     console.log(result);
+  }).catch((err) => {
+    console.log(err);
   });
   logger.info('get function works');
   res.status(200).json();

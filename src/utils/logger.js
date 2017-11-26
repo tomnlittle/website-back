@@ -6,7 +6,7 @@
 'use strict';
 
 const { createLogger, format, transports }       = require('winston');
-const { combine, printf, colorize}               = format;
+const { printf, colorize}                        = format;
 const moment                                     = require('moment');
 const fs                                         = require('fs');
 
@@ -82,14 +82,14 @@ const instantiate = function() {
       })
     ]
   });
-}
+};
 
 /**
  * Handler for private error logs
  * @param  {} info - object
  * @param  {} opts - parameters for winston log
  */
-const isPrivate = format((info, opts) => {
+const isPrivate = format((info) => {
   if (info.private) { return false; }
   return info;
 });
@@ -98,7 +98,7 @@ const isPrivate = format((info, opts) => {
  * Handler for formatting the console output
  * @param  {} info - object
  */
-const consoleFormatter = printf((info, opts) => {
+const consoleFormatter = printf((info) => {
 
   let errString = '';
   Object.keys(info.err).forEach((key) => {
@@ -128,7 +128,7 @@ const prepareError = function(error) {
     message, 
     stack,
   };
-}
+};
 
 /**
  * This is the main function called
@@ -146,7 +146,7 @@ const log = function(msg, object, level, privateMode = false) {
     message: msg, 
     err: error
   });
-}
+};
 
 /**
  * logs info 
@@ -155,8 +155,8 @@ const log = function(msg, object, level, privateMode = false) {
  * @param  {} privateMode - Whether the log should be written to disk or not 
  */
 const info = function(msg, errorObject, privateMode) {
-  return log(msg, errorObject, 'info');
-}
+  return log(msg, errorObject, 'info', privateMode);
+};
 
 /**
  * Logs errors
@@ -165,7 +165,7 @@ const info = function(msg, errorObject, privateMode) {
  */
 const error = function(msg, errorObject) {
   return log(msg, errorObject, 'error');
-}
+};
 
 /**
  * Logs warnings
@@ -174,7 +174,7 @@ const error = function(msg, errorObject) {
  */
 const warn = function(msg, errorObject) {
   return log(msg, errorObject, 'warn');
-}
+};
 
 /**
  * Logs warnings
@@ -183,12 +183,12 @@ const warn = function(msg, errorObject) {
  */
 const alert = function(msg, errorObject) {
   return log(msg, errorObject, 'alert');
-}
+};
 
 module.exports = {
   info, 
   error,
   warn,
   alert
-}
+};
 

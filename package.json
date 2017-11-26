@@ -6,7 +6,7 @@
   "scripts": {
     "start": "better-npm-run start",
     "serve": "better-npm-run run-prod",
-    "dev": "better-npm-run reload",
+    "dev": "better-npm-run dev",
     "docs": "apidoc -i src/ -o docs/",
     "test": "mocha test --recursive --timeout 5000 --slow 0"
   },
@@ -22,6 +22,12 @@
       "env": {
         "NODE_ENV": "production"
       }
+    },
+    "dev": {
+      "command": "better-npm-run reload"
+    },
+    "eslint": {
+      "command": "eslint --cache -c .eslintrc.json"
     },
     "reload": {
       "command": "nodemon src/app",
