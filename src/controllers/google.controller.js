@@ -11,7 +11,7 @@ const status        = require('http-status-codes');
 
 /**
  * @api {all} /google/autocomplete
- * @apiGroup flickr
+ * @apiGroup google
  * @apiDescription Gets the list of possible locations
  *
  * @apiSuccess {String} result Message containing success code.
@@ -48,7 +48,7 @@ const autocomplete = function(req, res) {
       predictions.push({
         prediction: object.description,
         placeID: object.place_id,
-        photo: object.reference
+        photoReference: object.reference
       });
     }
 
@@ -57,7 +57,7 @@ const autocomplete = function(req, res) {
     });
   }).catch((err) => {
     logger.error('[google-maps] AutoComplete', err);      
-    res.status(status.INTERNAL_SERVER_ERROR); 
+    res.status(status.INTERNAL_SERVER_ERROR).json(); 
   });
 };
 

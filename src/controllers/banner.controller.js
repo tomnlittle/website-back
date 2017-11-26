@@ -6,6 +6,7 @@
 'use strict';
 
 const logger        = require('../utils/logger');
+const status        = require('http-status-codes');
 const gmaps         = require('../external-apis/google');
 const deep          = require('../external-apis/deep-ai');
 
@@ -34,7 +35,7 @@ const deep          = require('../external-apis/deep-ai');
 const get = function(req, res) {
   
   logger.info('get function works');
-  res.status(200).json();
+  res.status(status.OK).json();
   return;
 };
 
@@ -45,7 +46,7 @@ const get = function(req, res) {
  */
 const admin = function(req, res) {
   logger.info('admin function works');
-  res.status(200).json();
+  res.status(status.OK).json();
   return;
 };
 

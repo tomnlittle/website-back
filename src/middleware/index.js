@@ -9,6 +9,7 @@
  * Middleware which handles authentication
  */
 const logger          = require('../utils/logger');
+const status          = require('http-status-codes');
 const NotFound        = require('../errors/404');
 
 /**
@@ -58,7 +59,7 @@ const unhandledCatch = function(req, res) {
  */
 const handleError = function(err, req, res) {
   logger.alert('[Router] ' + err.name, err);
-  res.status(404).json();
+  res.status(status.NOT_FOUND).json();
   return;
 }; 
 
