@@ -7,18 +7,20 @@
 /**
  * Middleware which handles authentication
  */
-const conf    = require('../conf');
-const logger    = require('../utils/logger');
+const conf            = require('../conf');
+const logger          = require('../utils/logger');
+
+const NotFound        = require('../errors/404');
 
 /**
  * All requests are served through this function,
  * 
  * @param {*} req - Incoming request to decode 
- * @param {*} res - Repsonse code - if needed
+ * @param {*} res - Repsonse code - if needed ie. 404 etc
  * @param {*} next - next function in stack
  */
-const decode = function(req, res, next) {
-  logger.info('DECODING');
+const parse = function(req, res, next) {
+  logger.info('[parse middleware]');
   next();
 };
 
@@ -32,11 +34,34 @@ const decode = function(req, res, next) {
  * @param {*} next - next function in stack
  */
 const adminAuth = function(req, res, next) {
-  logger.info('ADMIN AUTH');
+  logger.info('[admin auth]');
+
+  // decode the token
+
+  // log success or failure 
+
+  // log call
+
   next();
 };
 
+/**
+ * Request error handler
+ * 
+ * @param {*} err - error code from express
+ * @param {*} req - Incoming request to check for access 
+ * @param {*} res - Repsonse code - if needed
+ * @param {*} next - next function in stack
+ */
+const handleError = function(err, req, res, next) {
+  //console.log(notFound)
+  console.log('here')
+  logger.alert('alerting');
+  next(new NotFound(''))
+}
+
 module.exports = {
-  decode,
-  adminAuth
+  parse,
+  adminAuth,
+  handleError
 };

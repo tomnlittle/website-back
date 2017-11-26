@@ -4,7 +4,7 @@
  */
 'use strict';
 
-const fs      = require('fs');
+const fs                    = require('fs');
 
 // External json file that stores keys which should not be in a 
 // public git repository

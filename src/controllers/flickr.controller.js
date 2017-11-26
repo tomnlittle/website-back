@@ -31,7 +31,7 @@ const logger        = require('../utils/logger');
  */
 const get = function(req, res) {
   logger.info('get function works')
-  res.status(200).json({});
+  res.status(200).json();
   return;
 }
 
@@ -42,7 +42,7 @@ const get = function(req, res) {
  */
 const admin = function(req, res) {
   logger.info('admin function works')
-  res.status(200).json({});
+  res.status(200).json();
   return;
 }
 

@@ -38,8 +38,10 @@ const app = express();
 app.use(express.json({
   inflate: false, // when false does not handle deflated bodies 
   limit: 1000, // in Bytes
+  reviver: null, // second argument into json.parse
   strict: true, // Only accept arrays and objects
-  type: "application/json" // Type of requests
+  type: "application/json", // Type of requests
+  verify: undefined // function call 
 }))
 
 // Import the response time library 
@@ -69,7 +71,7 @@ const middleware = require('./middleware/');
 const routes = require('./routes')
 
 // Add the decoder to the router
-router.use(middleware.decode);
+router.use(middleware.parse);
 
 // Add open functions to router 
 for (const route in routes) routes[route].open(router);
@@ -77,6 +79,8 @@ for (const route in routes) routes[route].open(router);
 // Add admin authentication layer
 router.use(middleware.adminAuth);
 for (const route in routes) routes[route].admin(router);
+
+app.use(middleware.handleError);
 
 app.use('/', router);
 
