@@ -45,9 +45,8 @@ const adminAuth = function(req, res, next) {
   next();
 };
 
-const unhandledCatch = function(req, res, next) {
-  console.log('here');
-  next(res.status(404));
+const unhandledCatch = function(req, res) {
+  handleError(new NotFound, req, res);
 };
 
 /**
@@ -58,10 +57,11 @@ const unhandledCatch = function(req, res, next) {
  * @param {*} res - Repsonse code - if needed
  * @param {*} next - next function in stack
  */
-const handleError = function(err, req, res, next) {
-  logger.alert('', new NotFound());
-  next()
-};
+const handleError = function(err, req, res) {
+  logger.alert('[Router] ' + err.name, err);
+  res.status(404).json();
+  return;
+}; 
 
 module.exports = {
   parse,
