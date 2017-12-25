@@ -4,7 +4,7 @@
  */
 
 const request = require('request');
-const conf  = require('../conf');
+const conf  = require('../config');
 const q     = require('q');
 
 class DeepAI {

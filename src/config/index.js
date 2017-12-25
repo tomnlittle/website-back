@@ -14,6 +14,7 @@ const CONFIG = JSON.parse(fs.readFileSync(config_file, 'utf8'));
 
 module.exports = {
   
+  // System Environment
   ENVIRONMENT            : process.env.NODE_ENV,
 
   // Logs folder
@@ -28,5 +29,6 @@ module.exports = {
   //API for Deep AI
   DEEP_AI_KEY            : CONFIG.DEEP_AI.KEY,
 
+  // Default port 
   PORT                   : 3001
 };

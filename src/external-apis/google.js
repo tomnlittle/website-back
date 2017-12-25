@@ -4,7 +4,7 @@
  */
 
 const gmaps = require('@google/maps');
-const conf  = require('../conf');
+const conf  = require('../config'); 
 const q     = require('q');
 
 class GoogleMaps {
@@ -61,6 +61,7 @@ class GoogleMaps {
       placeid: placeID,
       language: this.language
     }).asPromise().then((result) => {
+      return result;
       if (result.hasOwnProperty('json') && result.json.hasOwnProperty('result')) return result.json.result;
       return Promise.reject(result);
     });
@@ -79,6 +80,7 @@ class GoogleMaps {
       maxwidth: width,
       maxheight: height
     }).asPromise().then((result) => {
+      
       return result;
     });
   }

@@ -5,7 +5,7 @@
 
 'use strict';
 
-const logger        = require('../utils/logger');
+const logger        = require('../logging');
 const status        = require('http-status-codes');
 const gmaps         = require('../external-apis/google');
 const deep          = require('../external-apis/deep-ai');
@@ -35,13 +35,19 @@ const deep          = require('../external-apis/deep-ai');
 const get = function(req, res) {
 
   return gmaps.getPlace('ChIJv1LEidaxEmsRovFmxB3Vj-g').then((result) => {
+    res.status(status.OK).json({
+      result: Object.keys(result),
+      headers: result.headers,
+      json: result.json,
+      requestUrl: result.requestUrl
+    });
+    return Promise.reject();
     console.log(result.reference)
     return gmaps.getPlacePhoto('CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU');
   }).then((result) => {    
-    console.log(result.readable);
     res.status(status.OK).json({
       result: Object.keys(result),
-      headers: result.rawHeaders
+      headers: result.headers
     });
   }).catch((err) => {
     logger.error('[google-maps] AutoComplete', err);      

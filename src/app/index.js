@@ -13,8 +13,8 @@ const session            = require('express-session');
 const RedisStore         = require('connect-redis')(session);
 
 / * Logger class writes to the console and log files * /;
-const logger             = require('./utils/logger');
-const conf               = require('./conf');
+const logger             = require('../logging');
+const conf               = require('../config');
 
 
 // Crash server if Server is configured for the incorrect region
@@ -64,10 +64,10 @@ const router = express.Router({
 });
 
 // Import middleware
-const middleware = require('./middleware/');
+const middleware = require('../middleware/');
 
 // Import the routes
-const routes = require('./routes');
+const routes = require('../routes');
 
 // Add the decoder to the router
 router.use(middleware.parse);

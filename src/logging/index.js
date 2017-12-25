@@ -10,7 +10,7 @@ const { printf, colorize}                        = format;
 const moment                                     = require('moment');
 const fs                                         = require('fs');
 
-const conf                                       = require('../conf');
+const conf                                       = require('../config');
 
 const customLevels = {
   levels: {

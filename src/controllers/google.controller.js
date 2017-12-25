@@ -5,7 +5,7 @@
 
 'use strict';
 
-const logger        = require('../utils/logger');
+const logger        = require('../logging');
 const gmaps         = require('../external-apis/google');
 const status        = require('http-status-codes');
 

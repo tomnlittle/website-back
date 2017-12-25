@@ -8,7 +8,7 @@
 /**
  * Middleware which handles authentication
  */
-const logger          = require('../utils/logger');
+const logger          = require('../logging');
 const status          = require('http-status-codes');
 const NotFound        = require('../errors/404');
 
