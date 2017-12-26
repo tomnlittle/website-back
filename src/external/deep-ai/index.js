@@ -3,14 +3,14 @@
  * @module Deep-AI
  */
 
+const app     = require('../../app');
 const request = require('request');
-const conf  = require('../config');
-const q     = require('q');
+const q       = require('q');
 
 class DeepAI {
-  constructor() {
-    this.key = conf.DEEP_AI_KEY;
-    this.apiURL = 'https://api.deepai.org/api/deepdream';
+  constructor(main) {
+    this.key = main.config.DEEP.DEEP_AI_KEY;
+    this.apiURL = main.config.DEEP.URL;
   }
 
   processImageURL(imageURL) {
@@ -32,4 +32,4 @@ class DeepAI {
   }
 }
 
-module.exports = new DeepAI();
+module.exports = new DeepAI(app);

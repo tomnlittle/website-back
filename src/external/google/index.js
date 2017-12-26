@@ -3,16 +3,16 @@
  * @module google
  */
 
+const app     = require('../../app');
 const gmaps = require('@google/maps');
-const conf  = require('../config'); 
 const q     = require('q');
 
 class GoogleMaps {
-  constructor() {
-    this.geolock = 'au';
-    this.language = 'en';
+  constructor(main) {
+    this.geolock = main.config.GOOGLE.GEOLOCK;
+    this.language = main.config.GOOGLE.LANGUAGE;
 
-    this.key = conf.GOOGLE_MAPS_API_KEY;
+    this.key = main.config.GOOGLE.GOOGLE_MAPS_API_KEY;
     this.client = gmaps.createClient({
       key : this.key,
       Promise: q.Promise
@@ -61,7 +61,6 @@ class GoogleMaps {
       placeid: placeID,
       language: this.language
     }).asPromise().then((result) => {
-      return result;
       if (result.hasOwnProperty('json') && result.json.hasOwnProperty('result')) return result.json.result;
       return Promise.reject(result);
     });
@@ -80,10 +79,9 @@ class GoogleMaps {
       maxwidth: width,
       maxheight: height
     }).asPromise().then((result) => {
-      
       return result;
     });
   }
 }
 
-module.exports = new GoogleMaps();
+module.exports = new GoogleMaps(app);
