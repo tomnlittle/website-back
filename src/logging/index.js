@@ -11,15 +11,7 @@ const moment                                     = require('moment');
 const fs                                         = require('fs');
 
 const conf                                       = require('../config');
-
-const customLevels = {
-  levels: {
-    alert: 0,
-    info: 1,
-    warn: 2,
-    error: 3
-  }
-};
+const logLevels                                  = require('./logLevels');
 
 /**
  * Handler for private error logs
@@ -49,6 +41,36 @@ const consoleFormatter = printf((info) => {
   return `${timestamp} ${info.level}: ${info.message} ${errString}`;
 });
 
+/**
+   * Returns the error object, so we always print the full stack of the error
+   * @param  {} err - Error Object
+   */
+const prepareError = function (error) {
+  // if (!error) return {};
+
+  console.log(error);
+
+  let errStr = '';
+  // Check if err is an object
+  if (error === Object(error)) {
+    const keys = Object.keys(error);
+    keys.forEach((key) => {
+      // Special Case 
+      if (key === 'stack') return;
+      errStr += key + ' ' + error[key];
+    });
+  } else if (error === String(error)) {
+    errStr = error;
+  }
+
+  const stack = error.stack || null;
+
+  return {
+    error: errStr,
+    stack
+  };
+};
+
 
 class Logger {
   /**
@@ -67,10 +89,7 @@ class Logger {
     } catch (err) {
       // If the err code is not the fact the folder already exists
       if (err.code !== 'EEXIST') {
-        console.error('[app] Could not create folders" ', {
-          err: err
-        });
-        process.exit(1);
+        throw ('[app] Could not create folders" ', err);
       }
     }
 
@@ -79,10 +98,10 @@ class Logger {
     const alert = alertsFolder + filename;
 
     this.logger = createLogger({
-      levels: customLevels.levels,
+      levels: logLevels.levels,
       transports: [
         new transports.Console({ 
-          levels: customLevels.levels,
+          levels: logLevels.levels,
           level: 'error',
           format: format.combine(
             colorize(),
@@ -120,7 +139,7 @@ class Logger {
    */
   log(msg, object, level, privateMode = false) {
   
-    const error = this.prepareError(object);
+    const error = prepareError(object);
     
     return this.logger.log({
       private: privateMode,
@@ -128,24 +147,6 @@ class Logger {
       message: msg, 
       err: error
     });
-  }
-
-  /**
-   * Returns the error object, so we always print the full stack of the error
-   * @param  {} err - Error Object
-   */
-  prepareError(error) {
-    if (!error) return {};
-
-    const err = JSON.stringify(error) || null;
-    const message = error.message || null;
-    const stack = error.stack || null;
-
-    return {
-      err,
-      message,
-      stack,
-    };
   }
 
   /**
@@ -187,4 +188,3 @@ class Logger {
 }
 
 module.exports = new Logger();
-
