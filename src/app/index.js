@@ -97,3 +97,4 @@ process.on('unhandledRejection', (err) => {
 app.listen(conf.PORT);
 
 logger.info('Backend running on port', conf.PORT);
+logger.info('Backend running on', {port: conf.PORT});

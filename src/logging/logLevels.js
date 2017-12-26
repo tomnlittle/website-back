@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   levels: {
     alert: 0,
