@@ -6,16 +6,17 @@ const moment             = require('moment');
 / * Express is used for routing * /;
 const express            = require('express');
 
+// Initialise the express app
+const app = express();
 
-/ * Logger class writes to the console and log files * /;
-const logger             = require('../logging');
-const conf               = require('../config');
-
+app.routes = require('../routes')(app);
+app.logger = require('../logging');
+app.config = require('../config');
 
 // Crash server if Server is configured for the incorrect region
 //                  -> Everything is handled in epoch UTC
 if (momentTimezone.tz.guess() !== 'Australia/Sydney') {
-  logger.error('Region incorrectly set, should be "Australia/Sydney" ', {
+  app.logger.error('Region incorrectly set, should be "Australia/Sydney" ', {
     'Current TZ': momentTimezone.tz.guess(),
     'TimezoneOffset': moment().utcOffset()
   });
@@ -25,24 +26,18 @@ if (momentTimezone.tz.guess() !== 'Australia/Sydney') {
 // Set the default timezone
 moment.tz.setDefault('UTC');
 
-// Initialise the express app
-const app = express();
-
-app.routes = require('../routes')(app);
-
-
 // Uncaught exception handler
 process.on('uncaughtException', (err) => {
-  logger.error('[app] Uncaught exception encountered', err);
+  app.logger.error('[app] Uncaught exception encountered', err);
 });
 
 // Unhandled promise rejection handler
 process.on('unhandledRejection', (err) => {
-  logger.error('[app] Uncaught promise rejection', err);
+  app.logger.error('[app] Uncaught promise rejection', err);
 });
 
 // Get app to listen on default port
-app.listen(conf.PORT);
+app.listen(app.config.PORT);
 
-logger.info('Backend running on port', conf.PORT);
-logger.info('Backend running on', {port: conf.PORT});
+app.logger.info('Backend running on port', app.config.PORT);
+app.logger.info('Backend running on', {port: app.config.PORT});
