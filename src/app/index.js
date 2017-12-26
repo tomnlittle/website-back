@@ -1,30 +1,13 @@
 'use strict';
 
-const momentTimezone     = require('moment-timezone');
-const moment             = require('moment');
-
-/ * Express is used for routing * /;
-const express            = require('express');
-
 // Initialise the express app
-const app = express();
+const app = require('express')();
 
-app.routes = require('../routes')(app);
+app.status = require('http-status-codes');
 app.logger = require('../logging');
 app.config = require('../config');
-
-// Crash server if Server is configured for the incorrect region
-//                  -> Everything is handled in epoch UTC
-if (momentTimezone.tz.guess() !== 'Australia/Sydney') {
-  app.logger.error('Region incorrectly set, should be "Australia/Sydney" ', {
-    'Current TZ': momentTimezone.tz.guess(),
-    'TimezoneOffset': moment().utcOffset()
-  });
-  process.exit(1);
-}
-
-// Set the default timezone
-moment.tz.setDefault('UTC');
+app.chrono = require('../chronometer');
+app.routes = require('../routes')(app);
 
 // Uncaught exception handler
 process.on('uncaughtException', (err) => {
@@ -40,4 +23,3 @@ process.on('unhandledRejection', (err) => {
 app.listen(app.config.PORT);
 
 app.logger.info('Backend running on port', app.config.PORT);
-app.logger.info('Backend running on', {port: app.config.PORT});

@@ -5,7 +5,7 @@
 
 const redis     = require('redis');
 const conf      = require('../config');
-const winston   = require('../logging');
+const logger   = require('../logging');
 const Q         = require('q');
 
 class Redis {
@@ -60,11 +60,7 @@ class Redis {
       // If it exists, remove the data and set the expiry to one second
       return this.client.set(key, '', 'EX', 1);
     }).catch((err) => {
-      winston.error('Failed to delete redis session', {
-         
-        stack: err.stack,
-        err: err
-      });
+      logger.error('Failed to delete redis session', err);
     });
   }
 }

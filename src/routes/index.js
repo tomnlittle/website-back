@@ -29,10 +29,10 @@ module.exports = (app) => {
   router.use(bodyParser.json({ limit: '5mb' }));
 
   // Setup the middleware 
-  //router.use(require('./middleware'));
+  // router.use(require('./middleware'));
 
   // Add Routes
-  //router.use(require('./endpoints'));
+  // router.use(require('./endpoints')(app));
 
   return router;
 };

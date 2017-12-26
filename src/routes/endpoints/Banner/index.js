@@ -13,7 +13,7 @@ module.exports = {
     router.get('/banner/get', banner.get);
   },
 
-  admin: function(router) {
-    router.get('/banner/admin', banner.admin);
-  }
+  // admin: function(router) {
+  //   router.get('/banner/admin', banner.admin);
+  // }
 };

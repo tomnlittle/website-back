@@ -5,9 +5,10 @@
 'use strict';
 
 const banner        = require('./banner.route');
-const google        = require('./google.route');
+// const google        = require('./google.route');
 
-module.exports = {
-  banner,
-  google
+module.exports = (app) => {
+  
+
+  
 };

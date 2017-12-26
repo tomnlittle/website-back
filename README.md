@@ -4,16 +4,13 @@ Nodejs backend for managing and demonstrating my projects. Features currently im
 - DeepMindAI - Processing of images
 - Google Maps, Place Services, autocomplete lookup
 - Middleware and Express Routing
-- Winston Loggin 
+- Winston Logging
+- Sophisticated Multiple User type based middleware routing, - Redis, Express, Custom Middleware parsing
 
 ### Todos
  - Write Tests
- - Auth - with express-session, passport and redis
  - Docker integration
  - PostgreSQL integration and database management for users 
-
-### New Features!
-  - Soon...
 
 ### Tech
 Made possible due to the great work by:
@@ -60,10 +57,8 @@ Below is a template for the config json, the filename should be config.json and 
     }
 }
 ~~~
-### Docker
---- Still to come
 
-License
+#### License
 ----
 
 MIT

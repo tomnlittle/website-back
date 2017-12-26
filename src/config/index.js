@@ -2,6 +2,7 @@
  * Configuration file with global constants
  * @module conf
  */
+
 'use strict';
 
 const fs                    = require('fs');
