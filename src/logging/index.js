@@ -6,71 +6,17 @@
 'use strict';
 
 const { createLogger, format, transports }       = require('winston');
-const { printf, colorize}                        = format;
+const { colorize }                               = format;
 const moment                                     = require('moment');
 const fs                                         = require('fs');
 
 const conf                                       = require('../config');
+
+/ * Helper Functions * /;
 const logLevels                                  = require('./logLevels');
-
-/**
- * Handler for private error logs
- * @param  {} info - object
- * @param  {} opts - parameters for winston log
- */
-const isPrivate = format((info) => {
-  if (info.private) { return false; }
-  return info;
-});
-
-/**
-* Handler for formatting the console output
-* @param  {} info - object
-*/
-const consoleFormatter = printf((info) => {
-
-  let errString = '';
-  Object.keys(info.err).forEach((key) => {
-    if (info.err[key]) {
-      errString += info.err[key];
-    }
-  });
-
-  const timestamp = moment().format(conf.DISPLAY_DATE_FORMAT);
-
-  return `${timestamp} ${info.level}: ${info.message} ${errString}`;
-});
-
-/**
-   * Returns the error object, so we always print the full stack of the error
-   * @param  {} err - Error Object
-   */
-const prepareError = function (error) {
-  // if (!error) return {};
-
-  console.log(error);
-
-  let errStr = '';
-  // Check if err is an object
-  if (error === Object(error)) {
-    const keys = Object.keys(error);
-    keys.forEach((key) => {
-      // Special Case 
-      if (key === 'stack') return;
-      errStr += key + ' ' + error[key];
-    });
-  } else if (error === String(error)) {
-    errStr = error;
-  }
-
-  const stack = error.stack || null;
-
-  return {
-    error: errStr,
-    stack
-  };
-};
-
+const prepareError                               = require('./prepareError');
+const isPrivate                                  = require('./privateError');
+const consoleFormatter                           = require('./formater');
 
 class Logger {
   /**

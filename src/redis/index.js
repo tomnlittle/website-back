@@ -4,8 +4,8 @@
  */
 
 const redis     = require('redis');
-const conf      = require('../conf');
-const winston   = require('../logger');
+const conf      = require('../config');
+const winston   = require('../logging');
 const Q         = require('q');
 
 class Redis {

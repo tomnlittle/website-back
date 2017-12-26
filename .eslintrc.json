@@ -8,12 +8,14 @@
         "ecmaFeatures": {
             "jsx": true
         },
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaVersion": 2016
     },
     "rules": {
         "indent": [
             "error",
-            2
+            2,
+            { "SwitchCase": 1 }
         ],
         "linebreak-style": [
             "error",
@@ -25,6 +27,41 @@
         ],
         "semi": [
             "error",
+            "always"
+        ],
+        "no-delete-var": [
+            "error"
+        ],
+        "no-var": [
+            "error"
+        ],
+        "max-lines": [
+            "error",
+            {
+                "max": 200,
+                "skipBlankLines": true,
+                "skipComments": true
+            }
+        ],
+        "complexity": [
+            "error", 
+            { 
+                "max": 4
+                }
+            ],
+        "max-depth": [
+            "error", 
+            4
+        ],
+        "max-nested-callbacks": [
+            "error", 
+            3
+        ], 
+        "prefer-const": [
+            "error"
+        ],
+        "eqeqeq": [
+            "error", 
             "always"
         ]
     }
