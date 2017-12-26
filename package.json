@@ -2,7 +2,7 @@
   "name": "website-backend",
   "version": "1.0.0",
   "description": "Backend for Thomas Northall-Little's Website",
-  "main": "app.js",
+  "main": "app",
   "scripts": {
     "start": "better-npm-run start",
     "serve": "better-npm-run run-prod",
@@ -59,7 +59,8 @@
     "q": "^1.5.1",
     "request": "^2.83.0",
     "response-time": "^2.3.2",
-    "winston": "^3.0.0-rc1"
+    "winston": "^3.0.0-rc1",
+    "helmet": "^3.9.0"
   },
   "devDependencies": {
     "apidoc": "^0.16.1",

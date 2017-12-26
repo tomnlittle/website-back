@@ -5,9 +5,11 @@
 
 'use strict';
 
-const logger        = require('../logging');
-const gmaps         = require('../external-apis/google');
 const status        = require('http-status-codes');
+
+const logger        = require('../../../logging');
+const gmaps         = require('../../../external-apis/google');
+
 
 /**
  * @api {all} /google/autocomplete

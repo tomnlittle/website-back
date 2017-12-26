@@ -5,10 +5,10 @@
 
 'use strict';
 
-const logger        = require('../logging');
+const logger        = require('../../../logging');
 const status        = require('http-status-codes');
-const gmaps         = require('../external-apis/google');
-const deep          = require('../external-apis/deep-ai');
+const gmaps         = require('../../../external-apis/google');
+
 
 /**
  * @api {all} /banner/get

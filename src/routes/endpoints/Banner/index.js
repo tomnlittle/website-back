@@ -5,7 +5,7 @@
 
 'use strict';
 
-const banner = require('../controllers/banner.controller');
+const banner = require('./controller');
 
 module.exports = {
 

@@ -5,14 +5,11 @@
 
 'use strict';
 
-const google = require('../controllers/google.controller');
+const google = require('./controller');
 
 module.exports = {
 
   open: function(router) {
     router.get('/google/autocomplete', google.autocomplete);
-  },
-
-  admin: function(router) {
   }
 };
